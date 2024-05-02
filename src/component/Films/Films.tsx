@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../Redux-store/Store";
 import { film_api } from "../../Redux-store/Api_services";
+import { sortFilm } from "../../Redux-store/FilmsSlice";
 
 import "./_films.css";
+import { SpinningCircles } from "react-loading-icons";
+
 function Films() {
   const dispatch = useDispatch<AppDispatch>();
   const [id, setId] = useState("");
@@ -12,7 +15,7 @@ function Films() {
   const { films, error, loading } = useSelector(
     (state: RootState) => state.films
   );
-  console.log(films);
+ 
   useEffect(() => {
     dispatch(film_api());
   }, [dispatch]);
@@ -21,14 +24,14 @@ function Films() {
     <div className="film-container">
       <h1 className="heading">Movies</h1>
       {loading ? (
-        <div className="loading ">Loading...</div>
+         <SpinningCircles style={{marginLeft:'50vw',marginTop:'30vh',backgroundColor:'grey'}}/>
       ) : error ? (
         error
       ) : films ? (
         <table className="film-table">
           <thead>
             <tr>
-              <th>Title</th>
+              <th onClick={()=>dispatch(sortFilm('title'))}>Title</th>
               <th>Director</th>
               <th>Release date</th>
               <th>Episode no</th>

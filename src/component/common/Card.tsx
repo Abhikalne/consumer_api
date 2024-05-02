@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
+
+import React, {  useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "../../Redux-store/Store";
+import { useNavigate } from "react-router-dom";
 import { people_api } from "../../Redux-store/Api_services";
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import CardDetails from "./CardDetails";
 
-import "./_people.css";
+import "./_card.css";
+import { SpinningCircles } from "react-loading-icons";
 
-import CardDetails from "../common/CardDetails";
-function People() {
+function Card({ category }: any) {
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
@@ -17,14 +18,14 @@ function People() {
   );
 
   useEffect(() => {
-    dispatch(people_api());
-  }, []);
-
+    dispatch(people_api(category));
+  }, [dispatch,category]);
   return (
     <div className="people-container">
-      <h1 className="heading">People</h1>
+      <h1 className="heading">{category.toUpperCase()}</h1>
       {loading ? (
-        <div className="loading ">Loading...</div>
+                <SpinningCircles style={{marginLeft:'50vw',marginTop:'30vh',backgroundColor:'grey'}}/>
+
       ) : error ? (
         error
       ) : people ? (
@@ -36,4 +37,4 @@ function People() {
   );
 }
 
-export default People;
+export default Card;

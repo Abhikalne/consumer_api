@@ -17,8 +17,8 @@ export const film_api = createAsyncThunk(
 )
 
 export const people_api = createAsyncThunk(
-    'api/people', async () => {
-        const response = await axios.get('https://www.swapi.tech/api/people')        
+    'api/people', async (data:string) => {
+        const response = await axios.get('https://www.swapi.tech/api/'+data)        
         return response.data.results
     }
 )
@@ -27,29 +27,5 @@ export const getData_api = createAsyncThunk(
     'api/getData', async (url:string) => {
         const response = await axios.get(url)
         return response.data.result
-    }
-)
-export const planets_api = createAsyncThunk(
-    'api/people', async () => {
-        const response = await axios.get('https://www.swapi.tech/api/planets')        
-        return response.data.results
-    }
-)
-export const species_api = createAsyncThunk(
-    'api/species', async () => {
-        const response = await axios.get('https://www.swapi.tech/api/species/')
-        return response.data.results
-    }
-)
-export const starships_api = createAsyncThunk(
-    'api/starships', async () => {
-        const response = await axios.get('https://www.swapi.tech/api/starships')        
-        return response.data.results
-    }
-)
-export const vehicles_api = createAsyncThunk(
-    'api/vehicles', async () => {
-        const response = await axios.get('https://www.swapi.tech/api/vehicles')        
-        return response.data.results
     }
 )

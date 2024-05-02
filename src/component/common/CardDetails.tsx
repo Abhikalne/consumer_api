@@ -4,17 +4,21 @@ import { AppDispatch, RootState } from "../../Redux-store/Store";
 import { useDispatch, useSelector } from "react-redux";
 import { getData_api } from "../../Redux-store/Api_services";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
+import { resetPerson } from "../../Redux-store/PeopleSlice";
+import { SpinningCircles } from "react-loading-icons";
 
 function CardDetails({ items }: any) {
   const dispatch = useDispatch<AppDispatch>();
   const [slideIndex, setslideIndex] = useState(0);
   const { person } = useSelector((state: RootState) => state.people);
-  console.log(person);
+  
   const handlePrev = () => {
+    dispatch(resetPerson())
     setslideIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
+    dispatch(resetPerson())
     setslideIndex((prev) => (prev === items.length - 1 ? 0 : prev + 1));
   };
 
@@ -35,11 +39,12 @@ function CardDetails({ items }: any) {
           >
             <h3>{ele.name}</h3>
             <div>
-              {Object.keys(person).length && Object.entries(person.properties)?.map(([key, value]: any) => (
+              {Object.keys(person).length ? Object.entries(person.properties)?.map(([key, value]: any) => (
                 <h5 key={key + value}>
-                  {key.toUpperCase()}:- {value}
+                  {key.toUpperCase()}:- {Array.isArray(value)?value.map((itm:string)=><pre key={itm} style={{fontSize:'0.8rem'}}>{itm}</pre>):value}
                 </h5>
-              ))}
+              )):          <SpinningCircles style={{marginTop:'20vh',backgroundColor:'grey'}}/>
+            }
             </div>
           </div>
         );

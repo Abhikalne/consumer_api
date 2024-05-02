@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { dashboard_api } from "../Redux-store/Api_services";
 import { AppDispatch, RootState } from "../Redux-store/Store";
 import { images } from "./common/imagesData";
-
+import { useNavigate } from "react-router-dom";
+import {  SpinningCircles } from "react-loading-icons";
 
 import "./_dashboard.css";
-import { useNavigate } from "react-router-dom";
 
-function Dashboard() {
+function Dashboard({setCategory}:any) {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { rootData, error, loading } = useSelector(
@@ -25,6 +25,7 @@ function Dashboard() {
         key={key}
         className="rootData-item"
         onClick={() => {
+          setCategory(key)
           navigate("/" + key);
         }}
       >
@@ -44,7 +45,8 @@ function Dashboard() {
       <h1>STAR WAR Movie World</h1>
       <div className="parent">
         {loading ? (
-          <div className="loading">"Loading...."</div>
+          <SpinningCircles className="loading"/>
+     
         ) : error ? (
           error
         ) : (

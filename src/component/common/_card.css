@@ -1,0 +1,40 @@
+
+.people-container{
+    position: relative;
+    background-color: rgb(253, 246, 237);
+    min-height: 100vh;
+    
+}
+.people-parent{
+    display: flex;   
+    margin: 0 20vw;    
+    max-width: 50vw;
+    align-items: center;
+    gap:2%;
+    /* overflow: hidden; */
+    scroll-behavior: smooth;
+    text-align: center;
+    word-wrap: break-word;
+}
+.slide{
+    padding: 5%;   
+    flex: 0 0 auto; 
+    width: 100%;
+    min-height: 60vh;
+    background-color: rgb(253, 246, 237);
+    opacity: 0;
+    display: none;
+
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+}
+.active{
+    opacity: 1;
+    display: block;
+}
+
+.arrow-button{
+    /* min-width: 10%; */
+    padding: 2%;
+    border-radius: 50%;
+    background-color: rgb(205, 231, 255);
+}

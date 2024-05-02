@@ -42,9 +42,15 @@ const PeopleSlice = createSlice({
 
         })
     },
-    reducers: {}
+    reducers: {
+        resetPerson(state) {
+            state.person = {}
+        }
+    },
+
 })
 
+export const {resetPerson}=PeopleSlice.actions
 export default PeopleSlice.reducer
 
 
