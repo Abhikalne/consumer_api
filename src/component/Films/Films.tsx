@@ -15,23 +15,30 @@ function Films() {
   const { films, error, loading } = useSelector(
     (state: RootState) => state.films
   );
- 
+
   useEffect(() => {
     dispatch(film_api());
   }, [dispatch]);
 
   return (
     <div className="film-container">
-      <h1 className="heading">Movies</h1>
+      <h1 className="heading">MOVIES</h1>
       {loading ? (
-         <SpinningCircles style={{marginLeft:'50vw',marginTop:'30vh',backgroundColor:'grey'}}/>
+        <SpinningCircles
+          style={{
+            marginLeft: "50vw",
+            marginTop: "30vh",
+            backgroundColor: "grey",
+          }}
+          data-testid="loading"
+        />
       ) : error ? (
         error
       ) : films ? (
         <table className="film-table">
           <thead>
             <tr>
-              <th onClick={()=>dispatch(sortFilm('title'))}>Title</th>
+              <th onClick={() => dispatch(sortFilm("title"))}>Title</th>
               <th>Director</th>
               <th>Release date</th>
               <th>Episode no</th>
@@ -69,6 +76,3 @@ function Films() {
 }
 
 export default Films;
-
-
-

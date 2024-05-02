@@ -1,5 +1,4 @@
-
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux-store/Store";
 import { useNavigate } from "react-router-dom";
@@ -19,13 +18,19 @@ function Card({ category }: any) {
 
   useEffect(() => {
     dispatch(people_api(category));
-  }, [dispatch,category]);
+  }, [dispatch, category]);
   return (
     <div className="people-container">
       <h1 className="heading">{category.toUpperCase()}</h1>
       {loading ? (
-                <SpinningCircles style={{marginLeft:'50vw',marginTop:'30vh',backgroundColor:'grey'}}/>
-
+        <SpinningCircles
+          style={{
+            marginLeft: "50vw",
+            marginTop: "30vh",
+            backgroundColor: "grey",
+          }}
+          data-testid="loading"
+        />
       ) : error ? (
         error
       ) : people ? (
