@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from "react";
 
 import Dashboard from "./component/Dashboard";
-import { Provider } from "react-redux";
-import store from "./Redux-store/Store";
+import { Provider, useDispatch } from "react-redux";
+import store, { AppDispatch } from "./Redux-store/Store";
 import {  Route, Routes, useLocation } from "react-router-dom";
 import Films from "./component/Films/Films";
 import Card from "./component/common/Card";
+import Navbar from "./component/common/Navbar";
 
 
+// import './App.css'
 
 function App() {
   const [category,setCategory]= useState('')
   const [path,setPath]=useState('')
   const location=useLocation();
+  
 useEffect(() => {
+  
   category
     ? setPath("/" + category)
     : setCategory(location.pathname.slice(1));
 }, [category, location]);
 return (
   <Provider store={store}>
+      <Navbar setCategory={setCategory}/>
     <Routes>
       <Route
         path="/"

@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import FilmsReducer  from './FilmsSlice';
 import DashboardReducer from "./DashboardSlice";
-import PeopleReducer from "./PeopleSlice";
+import CardReducer from "./CardSlice";
 
 
 const store=configureStore({
     reducer: {
         films: FilmsReducer,
         dashboard: DashboardReducer,
-        people: PeopleReducer,
+        card: CardReducer,
        }    
 })
 export type AppDispatch = typeof store.dispatch

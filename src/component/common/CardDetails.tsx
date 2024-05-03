@@ -3,21 +3,21 @@ import { AppDispatch, RootState } from "../../Redux-store/Store";
 import { useDispatch, useSelector } from "react-redux";
 import { getData_api } from "../../Redux-store/Api_services";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
-import { resetPerson } from "../../Redux-store/PeopleSlice";
+import { resetCard } from "../../Redux-store/CardSlice";
 import { SpinningCircles } from "react-loading-icons";
 
 function CardDetails({ items }: any) {
   const dispatch = useDispatch<AppDispatch>();
   const [slideIndex, setslideIndex] = useState(0);
-  const { person } = useSelector((state: RootState) => state.people);
+  const { cardDetails } = useSelector((state: RootState) => state.card);
 
   const handlePrev = () => {
-    dispatch(resetPerson());
+    dispatch(resetCard());
     setslideIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    dispatch(resetPerson());
+    dispatch(resetCard());
     setslideIndex((prev) => (prev === items.length - 1 ? 0 : prev + 1));
   };
 
@@ -26,7 +26,7 @@ function CardDetails({ items }: any) {
   }, [dispatch, slideIndex, items]);
 
   return (
-    <div className="people-parent">
+    <div className="card-parent">
       <div className="arrow-button" onClick={handlePrev}>
         <FaAngleLeft data-testid="btn-prev" />
       </div>
@@ -38,8 +38,8 @@ function CardDetails({ items }: any) {
           >
             <h3>{ele.name}</h3>
             <div>
-              {Object.keys(person).length ? (
-                Object.entries(person.properties)?.map(([key, value]: any) => (
+              {Object.keys(cardDetails).length ? (
+                Object.entries(cardDetails.properties)?.map(([key, value]: any) => (
                   <h5 key={key + value}>
                     {key.toUpperCase()}:-{" "}
                     {Array.isArray(value)

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux-store/Store";
 import { useNavigate } from "react-router-dom";
-import { people_api } from "../../Redux-store/Api_services";
+import { card_api } from "../../Redux-store/Api_services";
 import CardDetails from "./CardDetails";
 
 import "./_card.css";
@@ -12,15 +12,15 @@ function Card({ category }: any) {
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
-  const { people, error, loading, person } = useSelector(
-    (state: RootState) => state.people
+  const { card, error, loading } = useSelector(
+    (state: RootState) => state.card
   );
 
   useEffect(() => {
-    dispatch(people_api(category));
+    dispatch(card_api(category));
   }, [dispatch, category]);
   return (
-    <div className="people-container">
+    <div className="card-container">
       <h1 className="heading">{category.toUpperCase()}</h1>
       {loading ? (
         <SpinningCircles
@@ -33,8 +33,8 @@ function Card({ category }: any) {
         />
       ) : error ? (
         error
-      ) : people ? (
-        <CardDetails items={people} />
+      ) : card ? (
+        <CardDetails items={card} />
       ) : (
         <div>Something Went wrong</div>
       )}

@@ -5,10 +5,11 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import Films from "./Films";
+import { Store, UnknownAction } from "@reduxjs/toolkit";
 
+let store: Store<unknown, UnknownAction, unknown>;
 describe("test for Films page", () => {
   const axiosMockInstance = new axiosMock(axios);
-  let store: any;
 
   beforeEach(() => {
     store = createTestStore();
@@ -17,7 +18,7 @@ describe("test for Films page", () => {
   test("render without data loading", async () => {
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./films"]}>
+        <MemoryRouter initialEntries={['/films']} >
           <Films />
         </MemoryRouter>
       </Provider>
@@ -50,7 +51,7 @@ describe("test for Films page", () => {
 
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./films"]}>
+        <MemoryRouter >
           <Films />
         </MemoryRouter>
       </Provider>
@@ -67,7 +68,7 @@ describe("test for Films page", () => {
   test("check for row expand", async () => {
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./films"]}>
+        <MemoryRouter >
           <Films />
         </MemoryRouter>
       </Provider>
@@ -84,7 +85,7 @@ describe("test for Films page", () => {
 
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./films"]}>
+        <MemoryRouter >
           <Films />
         </MemoryRouter>
       </Provider>
@@ -101,7 +102,7 @@ describe("test for Films page", () => {
 
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./films"]}>
+        <MemoryRouter >
           <Films />
         </MemoryRouter>
       </Provider>

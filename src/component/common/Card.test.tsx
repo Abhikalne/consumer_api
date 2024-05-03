@@ -5,10 +5,11 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import Card from "./Card";
+import { Store, UnknownAction } from "@reduxjs/toolkit";
 
 describe("test for Card page", () => {
   const axiosMockInstance = new axiosMock(axios);
-  let store: any;
+  let store: Store<unknown, UnknownAction, unknown>;
 
   const data = {
     results: [

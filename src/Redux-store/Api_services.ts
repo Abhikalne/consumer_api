@@ -16,7 +16,7 @@ export const film_api = createAsyncThunk(
     }
 )
 
-export const people_api = createAsyncThunk(
+export const card_api = createAsyncThunk(
     'api/people', async (data:string) => {
         const response = await axios.get('https://www.swapi.tech/api/'+data)        
         return response.data.results

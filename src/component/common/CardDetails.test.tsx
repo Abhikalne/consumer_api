@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 import CardDetails from "./CardDetails";
 import { createTestStore } from "./utils";
-import { toBeInTheDocument } from "@testing-library/jest-dom/matchers";
 import { getData_api } from "../../Redux-store/Api_services";
 
 describe("test for Card page", () => {
