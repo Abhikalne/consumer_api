@@ -1,16 +1,23 @@
 import axios from "axios";
 import axiosMock from "axios-mock-adapter";
-import { createTestStore } from "../common/utils";
+import { createTestStore, routesConfig } from "../common/utils";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
+import {
+  MemoryRouter,
+  RouterProvider,
+  createMemoryRouter,
+} from "react-router-dom";
 import Films from "./Films";
 import { Store, UnknownAction } from "@reduxjs/toolkit";
 
 let store: Store<unknown, UnknownAction, unknown>;
 describe("test for Films page", () => {
   const axiosMockInstance = new axiosMock(axios);
-
+  const router = createMemoryRouter(routesConfig, {
+    initialEntries: ["/", "/films"],
+    initialIndex: 1,
+  });
   beforeEach(() => {
     store = createTestStore();
   });
@@ -18,9 +25,7 @@ describe("test for Films page", () => {
   test("render without data loading", async () => {
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={['/films']} >
-          <Films />
-        </MemoryRouter>
+        <RouterProvider router={router} />
       </Provider>
     );
     expect(screen.getByText("MOVIES")).toBeInTheDocument();
@@ -51,9 +56,7 @@ describe("test for Films page", () => {
 
     render(
       <Provider store={store}>
-        <MemoryRouter >
-          <Films />
-        </MemoryRouter>
+        <RouterProvider router={router} />
       </Provider>
     );
     expect(screen.getByText("MOVIES")).toBeInTheDocument();
@@ -68,9 +71,9 @@ describe("test for Films page", () => {
   test("check for row expand", async () => {
     render(
       <Provider store={store}>
-        <MemoryRouter >
-          <Films />
-        </MemoryRouter>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
       </Provider>
     );
     waitFor(() => {
@@ -85,9 +88,9 @@ describe("test for Films page", () => {
 
     render(
       <Provider store={store}>
-        <MemoryRouter >
-          <Films />
-        </MemoryRouter>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
       </Provider>
     );
     await waitFor(() =>
@@ -102,9 +105,9 @@ describe("test for Films page", () => {
 
     render(
       <Provider store={store}>
-        <MemoryRouter >
-          <Films />
-        </MemoryRouter>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
       </Provider>
     );
     await waitFor(() =>

@@ -12,10 +12,10 @@ function Card({ category }: any) {
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
-  const { card, error, loading } = useSelector(
-    (state: RootState) => state.card
+  const cardData = useSelector(
+    (state: RootState) => state.card || { loading: true }
   );
-
+  const { card, loading, error } = cardData;
   useEffect(() => {
     dispatch(card_api(category));
   }, [dispatch, category]);

@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 
 import "./_navbar.css";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../Redux-store/Store";
 import { resetCard } from "../../Redux-store/CardSlice";
+import { card_api } from "../../Redux-store/Api_services";
 
 function Navbar({ setCategory }: any) {
-  
- const data:string[]=['FILMS','PEOPLE','PLANETS','SPECIES','STARSHIPS','VEHICLES']
-
-
+  const data: string[] = [
+    "FILMS",
+    "PEOPLE",
+    "PLANETS",
+    "SPECIES",
+    "STARSHIPS",
+    "VEHICLES",
+  ];
+  const dispatch = useDispatch<AppDispatch>();
+  // const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
 
   const toggleActiveClass = () => {
@@ -18,9 +25,11 @@ function Navbar({ setCategory }: any) {
   };
 
   const handleNavigate = (key: string) => {
-    
-    setCategory(key);
-    
+    // dispatch(resetCard());
+    // dispatch(card_api(key));
+    // setCategory(key);
+    // window.location.href = "http://localhost:3000/" + key;
+    // navigate("./" + key);
   };
   return (
     <header className="">
@@ -30,12 +39,12 @@ function Navbar({ setCategory }: any) {
         </a>
         <ul className={`navMenu ${isActive ? "active" : ""}`}>
           {data.map((key: string) => (
-              <li className="navitem" key={key}>
-                <div className="navLink" onClick={() => handleNavigate(key)}>
-                  {key.toLocaleUpperCase()}
-                </div>
-              </li>
-            ))}
+            <li className="navitem" key={key}>
+              <div className="navLink" onClick={() => handleNavigate(key)}>
+                {key.toLocaleUpperCase()}
+              </div>
+            </li>
+          ))}
         </ul>
         <div
           className={`hamburger ${isActive ? "active" : ""}`}
@@ -51,4 +60,3 @@ function Navbar({ setCategory }: any) {
 }
 
 export default Navbar;
-

@@ -1,16 +1,19 @@
 import axios from "axios";
 import axiosMock from "axios-mock-adapter";
-import { createTestStore } from "./utils";
+import { createTestStore, routesConfig } from "./utils";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
-import Card from "./Card";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
+
 import { Store, UnknownAction } from "@reduxjs/toolkit";
 
 describe("test for Card page", () => {
   const axiosMockInstance = new axiosMock(axios);
   let store: Store<unknown, UnknownAction, unknown>;
-
+  const router = createMemoryRouter(routesConfig, {
+    initialEntries: ["/", "/films", "/people"],
+    initialIndex: 2,
+  });
   const data = {
     results: [
       {
@@ -32,9 +35,7 @@ describe("test for Card page", () => {
   test("render without data loading", async () => {
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./people"]}>
-          <Card category="people" />
-        </MemoryRouter>
+        <RouterProvider router={router} />
       </Provider>
     );
     expect(screen.getByText("PEOPLE")).toBeInTheDocument();
@@ -48,9 +49,7 @@ describe("test for Card page", () => {
 
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./people"]}>
-          <Card category="people" />
-        </MemoryRouter>
+        <RouterProvider router={router} />
       </Provider>
     );
     expect(screen.getByText("PEOPLE")).toBeInTheDocument();
@@ -61,14 +60,28 @@ describe("test for Card page", () => {
     });
   });
 
-  test("render with data", async () => {
+  test("render without data", async () => {
     axiosMockInstance.onGet("https://www.swapi.tech/api/people").reply(404);
 
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./people"]}>
-          <Card category="people" />
-        </MemoryRouter>
+        <RouterProvider router={router} />
+      </Provider>
+    );
+    expect(screen.getByText("PEOPLE")).toBeInTheDocument();
+    waitFor(() =>
+      expect(
+        screen.getByText("Request failed with status code 404")
+      ).toBeInTheDocument()
+    );
+  });
+
+  test("render error", async () => {
+    axiosMockInstance.onGet("https://www.swapi.tech/api/people").reply(400);
+
+    render(
+      <Provider store={store}>
+        <RouterProvider router={router} />
       </Provider>
     );
     expect(screen.getByText("PEOPLE")).toBeInTheDocument();

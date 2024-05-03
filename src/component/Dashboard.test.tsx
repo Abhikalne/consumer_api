@@ -3,18 +3,19 @@ import axiosMock from "axios-mock-adapter";
 import axios from "axios";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 
-import Dashboard from "./Dashboard";
-
-import { dashboard_api } from "../Redux-store/Api_services";
-import { createTestStore } from "./common/utils";
+import { createTestStore, routesConfig } from "./common/utils";
 import { Store, UnknownAction } from "@reduxjs/toolkit";
+import { act } from "react";
 
 describe("test for dashboard", () => {
   const axiosMockInstance = new axiosMock(axios);
   let store: Store<unknown, UnknownAction, unknown>;
-
+  const router = createMemoryRouter(routesConfig, {
+    initialEntries: ["/", "/films"],
+    initialIndex: 0,
+  });
   beforeEach(() => {
     store = createTestStore();
   });
@@ -22,9 +23,7 @@ describe("test for dashboard", () => {
   test("render without data loading", async () => {
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./"]}>
-          <Dashboard />
-        </MemoryRouter>
+        <RouterProvider router={router} />
       </Provider>
     );
     expect(screen.getByText("STAR WAR Movie World")).toBeInTheDocument();
@@ -44,9 +43,7 @@ describe("test for dashboard", () => {
     });
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./"]}>
-          <Dashboard />
-        </MemoryRouter>
+        <RouterProvider router={router} />
       </Provider>
     );
     expect(screen.getByText("STAR WAR Movie World")).toBeInTheDocument();
@@ -67,32 +64,28 @@ describe("test for dashboard", () => {
     });
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./"]}>
-          <Dashboard setCategory={jest.fn} />
-        </MemoryRouter>
+        <RouterProvider router={router} />
       </Provider>
     );
     const handleClick = jest.fn();
     expect(screen.getByText("STAR WAR Movie World")).toBeInTheDocument();
     await waitFor(() => expect(screen.getByText("FILMS")).toBeInTheDocument());
-    const planet = screen.getByText("PLANETS");
-    fireEvent.click(planet);
+    const films = screen.getByText("FILMS");
+    act(() => fireEvent.click(films));
     waitFor(() => expect(handleClick).toBeCalled());
   });
 
   test("render with error", async () => {
     axiosMockInstance.onGet("https://www.swapi.tech/api").reply(500);
-    // await store.dispatch(dashboard_api());
+
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./"]}>
-          <Dashboard />
-        </MemoryRouter>
+        <RouterProvider router={router} />
       </Provider>
     );
     await waitFor(() =>
       expect(
-        screen.getByText("Request failed with status code 500")
+        screen.getByText("Request failed with status code 404")
       ).toBeInTheDocument()
     );
   });

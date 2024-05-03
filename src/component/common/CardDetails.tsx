@@ -9,8 +9,10 @@ import { SpinningCircles } from "react-loading-icons";
 function CardDetails({ items }: any) {
   const dispatch = useDispatch<AppDispatch>();
   const [slideIndex, setslideIndex] = useState(0);
-  const { cardDetails } = useSelector((state: RootState) => state.card);
-
+  const data = useSelector(
+    (state: RootState) => state.card || { loading: true }
+  );
+  const { cardDetails, loading } = data;
   const handlePrev = () => {
     dispatch(resetCard());
     setslideIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1));
@@ -38,19 +40,26 @@ function CardDetails({ items }: any) {
           >
             <h3>{ele.name}</h3>
             <div>
-              {Object.keys(cardDetails).length ? (
-                Object.entries(cardDetails.properties)?.map(([key, value]: any) => (
-                  <h5 key={key + value}>
-                    {key.toUpperCase()}:-{" "}
-                    {Array.isArray(value)
-                      ? value.map((itm: string) => (
-                          <pre key={itm} style={{ fontSize: "0.8rem" }}>
-                            {itm}
-                          </pre>
-                        ))
-                      : value}
-                  </h5>
-                ))
+              {loading ? (
+                <SpinningCircles
+                  style={{ marginTop: "20vh", backgroundColor: "grey" }}
+                  data-testid="loading"
+                />
+              ) : Object.keys(cardDetails).length ? (
+                Object.entries(cardDetails.properties)?.map(
+                  ([key, value]: any) => (
+                    <h5 key={key + value}>
+                      {key.toUpperCase()}:-{" "}
+                      {Array.isArray(value)
+                        ? value.map((itm: string) => (
+                            <pre key={itm} style={{ fontSize: "0.8rem" }}>
+                              {itm}
+                            </pre>
+                          ))
+                        : value}
+                    </h5>
+                  )
+                )
               ) : (
                 <SpinningCircles
                   style={{ marginTop: "20vh", backgroundColor: "grey" }}

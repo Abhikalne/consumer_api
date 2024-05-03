@@ -2,9 +2,13 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import axios from "axios";
 import axiosMock from "axios-mock-adapter";
 import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
+import {
+  MemoryRouter,
+  RouterProvider,
+  createMemoryRouter,
+} from "react-router-dom";
 import CardDetails from "./CardDetails";
-import { createTestStore } from "./utils";
+import { createTestStore, routesConfig } from "./utils";
 import { getData_api } from "../../Redux-store/Api_services";
 
 describe("test for Card page", () => {
@@ -25,6 +29,11 @@ describe("test for Card page", () => {
       },
     ],
   };
+  const router = createMemoryRouter(routesConfig, {
+    initialEntries: ["/", "/films", "/people"],
+    initialIndex: 2,
+  });
+
   beforeEach(() => {
     store = createTestStore();
   });
@@ -32,9 +41,8 @@ describe("test for Card page", () => {
   test("check for button", async () => {
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./people"]}>
-          <CardDetails items={data.results} />
-        </MemoryRouter>
+        <RouterProvider router={router} />
+        <CardDetails items={data.results} />
       </Provider>
     );
 
@@ -44,6 +52,9 @@ describe("test for Card page", () => {
   });
 
   test("check for person data", async () => {
+    axiosMockInstance.onGet("https://www.swapi.tech/api/people").reply(200, {
+      data,
+    });
     axiosMockInstance.onGet("https://www.swapi.tech/api/people/1").reply(200, {
       result: {
         properties: {
@@ -62,15 +73,18 @@ describe("test for Card page", () => {
         },
       },
     });
-    await store.dispatch(getData_api("https://www.swapi.tech/api/people/1"));
+
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./people"]}>
-          <CardDetails items={data.results} />
-        </MemoryRouter>
+        <RouterProvider router={router} />
+        <CardDetails items={data.results} />
       </Provider>
     );
-    expect(store.getState().person).not.toBeNull();
+    waitFor(() => {
+      expect(screen.getByText("HEIGHT")).toBeInTheDocument();
+      expect(screen.getByText("HEIGHT")).toBeInTheDocument();
+      expect(screen.getByText("HEIGHT")).toBeInTheDocument();
+    });
   });
 
   test("check for button activity", async () => {
@@ -78,9 +92,8 @@ describe("test for Card page", () => {
     const handlePrev = jest.fn();
     render(
       <Provider store={store}>
-        <MemoryRouter initialEntries={["./people"]}>
-          <CardDetails items={data.results} />
-        </MemoryRouter>
+        <RouterProvider router={router} />
+        <CardDetails items={data.results} />
       </Provider>
     );
 
