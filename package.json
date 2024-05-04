@@ -28,9 +28,15 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/**/*.tsx",
+    "lint-fix": "eslint src/**/*.tsx --fix"
   },
-  "eslintConfig": {},
+  "eslintConfig": {
+    "extends":[
+      "react-app","react-app/jest"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -46,10 +52,21 @@
   "jest": {
     "moduleNameMapper": {
       "^axios$": "axios/dist/node/axios.cjs"
-    }
+    },
+ 
+      "coveragePathIgnorePatterns" : [
+        "src/index.tsx",
+        "src/component/common/type.ts"
+      ]
+  
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@types/redux-mock-store": "^1.0.6"
+    "@eslint/js": "^9.2.0",
+    "@types/redux-mock-store": "^1.0.6",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "globals": "^15.1.0",
+    "typescript-eslint": "^7.8.0"
   }
 }

@@ -23,15 +23,20 @@
 .rootData-item > img {
   margin: 0.8rem;
   width: 92%;
-  height: 40vh;
+  height: 80%;
 }
 .title {
   color: blueviolet;
   font-weight: bolder;
   font-size: larger;
 }
-@media screen and (max-width: 700px) {
+
+
+@media only screen and (max-width: 768px){
   .rootData-item {
-    width: 78vw;
+    width: 50%;
+  
   }
+  
 }
+
