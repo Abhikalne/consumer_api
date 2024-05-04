@@ -1,13 +1,15 @@
 
 .card-container{
     position: relative;
-    background-color: rgb(193, 240, 243);
+    background: rgb(238,174,202);
+background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
     min-height: 100vh;
+    padding: 2%;
     
 }
 .card-parent{
     display: flex;   
-    margin: 0 20vw;    
+    margin: 0 16vw;    
     max-width: 50vw;
     align-items: center;
     gap:2%;
@@ -21,7 +23,8 @@
     flex: 0 0 auto; 
     width: 100%;
     min-height: 60vh;
-    background-color: rgb(165, 228, 219);
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgb(244, 175, 205) 0%, rgb(166, 202, 242) 100%);
     opacity: 0;
     display: none;
 

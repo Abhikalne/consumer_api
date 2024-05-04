@@ -1,9 +1,4 @@
-.container {
-  text-align: center;
-  background-color: rgb(88, 88, 88);
-  min-height: 100vh;
-  
-}
+
 .parent {
   display: flex;
   flex-wrap: wrap;
@@ -11,7 +6,7 @@
   align-items: center;
 }
 .loading {
-  padding: 20%;
+  margin-top: 10%;
   background-color: rgb(88, 88, 88);
   opacity: 0.7;
   color: white;

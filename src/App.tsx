@@ -8,28 +8,33 @@ import Films from "./component/Films/Films";
 import Card from "./component/common/Card";
 import Navbar from "./component/common/Navbar";
 import ErrorBoundaryPage from "./component/ErrorBoundary";
-
-// import './App.css'
+import "./App.css";
 
 function App() {
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState<string>("");
   const [path, setPath] = useState("");
   const location = window.location;
-  console.log(location);
+  const arr = ["people", "planets", "species", "starships", "vehicles"];
   useEffect(() => {
     category ? setPath("/" + category) : setCategory(location.toString());
   }, [category, location]);
   return (
     <Provider store={store}>
+      <Navbar setCategory={setCategory} />
       <ErrorBoundaryPage>
-        <Navbar setCategory={setCategory} />
         <Routes>
           <Route
             path="/"
             element={<Dashboard setCategory={setCategory} />}
           ></Route>
           <Route path="/films" Component={Films}></Route>
-          <Route path={path} element={<Card category={category} />}></Route>
+          {arr.map((ele: string, ind: number) => (
+            <Route
+              key={ele + ind}
+              path={ele}
+              element={<Card category={ele} />}
+            ></Route>
+          ))}
         </Routes>
       </ErrorBoundaryPage>
     </Provider>
