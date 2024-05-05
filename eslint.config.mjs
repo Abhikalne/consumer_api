@@ -18,6 +18,8 @@ export default [
     rules: {
       "react/react-in-jsx-scope": "off",
       indent: ["error", 4],
+      "@typescript-eslint/no-use-before-define": ["error"],
+      "react/jsx-filename-extension": ["warn", { extensions: [".tsx"] }],
     },
   },
 ];

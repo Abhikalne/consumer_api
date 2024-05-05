@@ -5,8 +5,8 @@ import { images } from "../../common/imagesData";
 import { useNavigate } from "react-router-dom";
 import { SpinningCircles } from "react-loading-icons";
 import { dashboardProps } from "../../common/type";
-import { useAppSelector } from "../../Hooks/useAppSelector";
-import { useAppDispatch } from "../../Hooks/useAppDispatch";
+import { useAppSelector } from "../../hooks/useAppSelector";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 import "./_dashboard.css";
 

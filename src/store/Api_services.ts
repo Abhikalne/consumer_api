@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { cardDetailsType, cardType } from "../common/type";
 
 const url: string = "https://www.swapi.tech/api";
 
@@ -20,8 +21,17 @@ export const card_api = createAsyncThunk("api/people", async (data: string) => {
 
 export const getData_api = createAsyncThunk(
   "api/getData",
-  async (url: string) => {
-    const response = await axios.get(url);
-    return response.data.result;
+  async (items: cardType[]) => {
+    try {
+      const response = await Promise.all(
+        items.map((ele: cardType) => axios.get(ele.url))
+      );
+      const dataList: cardDetailsType[] = response.map(
+        (res: any) => res.data.result
+      );
+      return dataList;
+    } catch (err) {
+      return err;
+    }
   }
 );

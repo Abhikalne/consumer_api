@@ -4,8 +4,8 @@ import { card_api } from "../../store/Api_services";
 import CardDetails from "../CardDetails/CardDetails";
 import { SpinningCircles } from "react-loading-icons";
 import { cardProps } from "../../common/type";
-import { useAppDispatch } from "../../Hooks/useAppDispatch";
-import { useAppSelector } from "../../Hooks/useAppSelector";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { useAppSelector } from "../../hooks/useAppSelector";
 import "./_card.css";
 
 function Card({ category }: cardProps) {

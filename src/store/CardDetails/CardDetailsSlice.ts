@@ -4,13 +4,13 @@ import { getData_api } from "../Api_services";
 import { cardDetailsType } from "../../common/type";
 
 type cardDetailsState = {
-  cardDetails: cardDetailsType;
+  cardDetails: Object[];
   loading: boolean;
   error: string;
 };
 
-const initialState = <cardDetailsState>{
-  cardDetails: {},
+const initialState = {
+  cardDetails: <any>[],
   loading: true,
   error: "",
 };
@@ -27,18 +27,18 @@ const CardDetailsSlice = createSlice({
       state.error = action.error.message
         ? action.error.message
         : "something went wrong";
-      state.cardDetails = {};
+      state.cardDetails = [];
       state.loading = false;
     });
     builder.addCase(getData_api.pending, (state, action) => {
       state.loading = true;
-      state.cardDetails = {};
+      state.cardDetails = [];
       state.error = "";
     });
   },
   reducers: {
     resetCard(state) {
-      state = { ...state, cardDetails: {} };
+      state = { ...state, cardDetails: [] };
     },
   },
 });

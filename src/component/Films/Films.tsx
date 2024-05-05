@@ -3,8 +3,8 @@ import { RootState } from "../../store/store";
 import { film_api } from "../../store/Api_services";
 import "./_films.css";
 import { SpinningCircles } from "react-loading-icons";
-import { useAppDispatch } from "../../Hooks/useAppDispatch";
-import { useAppSelector } from "../../Hooks/useAppSelector";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { useAppSelector } from "../../hooks/useAppSelector";
 import { filmsType } from "../../common/type";
 
 function Films() {

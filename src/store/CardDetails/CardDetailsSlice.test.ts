@@ -3,7 +3,7 @@ import reducer, { resetCard } from "./CardDetailsSlice";
 
 describe("test cases for cardDetails", () => {
   const initialState = {
-    cardDetails: {},
+    cardDetails: [],
     loading: true,
     error: "",
   };
@@ -14,7 +14,7 @@ describe("test cases for cardDetails", () => {
     const action: any = { type: getData_api.rejected, error };
     expect(reducer(initialState, action)).toEqual({
       loading: false,
-      cardDetails: {},
+      cardDetails: [],
       error: "something went wrong",
     });
   });
@@ -23,14 +23,14 @@ describe("test cases for cardDetails", () => {
     const action: any = { type: getData_api.pending };
     expect(reducer(initialState, action)).toEqual({
       loading: true,
-      cardDetails: {},
+      cardDetails: [],
       error: "",
     });
   });
 
   it("check for getData_api success", () => {
-    const payload = {
-      result: {
+    const payload = [
+      {
         properties: {
           height: "172",
           mass: "77",
@@ -46,11 +46,28 @@ describe("test cases for cardDetails", () => {
           url: "https://www.swapi.tech/api/people/1",
         },
       },
-    };
+      {
+        properties: {
+          height: "167",
+          mass: "75",
+          hair_color: "n/a",
+          skin_color: "gold",
+          eye_color: "yellow",
+          birth_year: "112BBY",
+          gender: "n/a",
+          created: "2024-05-04T22:54:04.434Z",
+          edited: "2024-05-04T22:54:04.434Z",
+          name: "C-3PO",
+          homeworld: "https://www.swapi.tech/api/planets/1",
+          url: "https://www.swapi.tech/api/people/2",
+        },
+      },
+    ];
+
     const action: any = { type: getData_api.fulfilled, payload };
     expect(reducer(initialState, action)).toEqual({
       loading: false,
-      cardDetails: { ...payload },
+      cardDetails: payload,
       error: "",
     });
   });

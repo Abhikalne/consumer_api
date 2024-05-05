@@ -2,6 +2,8 @@
 
 This project contains Starwar API, It shows different categories from api and on each category respective api will be called. Project contains redux for state management, css for styling and react testing library,jest for unit test cases.
 
+For multiple API calls Pomise.all is used, which will go through all api's and result will be displayed after all api's are executed.
+
 ## Available Scripts
 
 In the project directory, you can run:

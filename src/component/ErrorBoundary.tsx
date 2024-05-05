@@ -1,21 +1,25 @@
 // import ErrorPage from "./ErrorPage";
+import { useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 export default function ReactErrorBoundary(props: any) {
+    const [errorInfo, setErrorInfo] = useState("");
+
     const erroCompoent = () => {
-        return <div>Error</div>;
+        return (
+            <div>
+                <h1>Error</h1>
+                <h4>Something went wrong</h4>
+                {errorInfo}
+            </div>
+        );
     };
 
     return (
         <ErrorBoundary
             FallbackComponent={erroCompoent}
             onError={(error, errorInfo) => {
-                // log the error
-                console.log("Error caught!");
-                console.error(error);
-                console.error(errorInfo);
-
-                // record the error in an APM tool...
+                setErrorInfo(JSON.stringify(errorInfo));
             }}
         >
             {props.children}
