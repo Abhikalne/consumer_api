@@ -2,12 +2,9 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import axios from "axios";
 import axiosMock from "axios-mock-adapter";
 import { Provider } from "react-redux";
-import { 
-    RouterProvider,
-    createMemoryRouter,
-} from "react-router-dom";
+import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import CardDetails from "./CardDetails";
-import { createTestStore, routesConfig } from "./utils";
+import { createTestStore, routesConfig } from "../../common/utils";
 import { Store, UnknownAction } from "@reduxjs/toolkit";
 
 describe("test for Card page", () => {
@@ -72,7 +69,6 @@ describe("test for Card page", () => {
                 },
             },
         });
-
         render(
             <Provider store={store}>
                 <RouterProvider router={router} />

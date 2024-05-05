@@ -1,8 +1,7 @@
 // import ErrorPage from "./ErrorPage";
-import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-export default function ReactErrorBoundary(props: { children: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; }) {
+export default function ReactErrorBoundary(props: any) {
     const erroCompoent = () => {
         return <div>Error</div>;
     };

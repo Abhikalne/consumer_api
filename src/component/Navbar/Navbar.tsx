@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import "./_navbar.css";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../Redux-store/Store";
-import { resetCard } from "../../Redux-store/CardSlice";
-import { card_api } from "../../Redux-store/Api_services";
-import { navbarType } from "./type";
+import { AppDispatch } from "../../store/store";
+import { resetCard } from "../../store/CardDetails/CardDetailsSlice";
+import { card_api } from "../../store/Api_services";
+import { navbarType } from "../../common/type";
 
 function Navbar({ setCategory }: navbarType) {
     const data: string[] = [
@@ -39,7 +39,7 @@ function Navbar({ setCategory }: navbarType) {
                 <ul className={`navMenu ${isActive ? "active" : ""}`}>
                     {data.map((key: string) => (
                         <NavLink
-                            to={key}
+                            to={key.toLocaleLowerCase()}
                             key={key}
                             className="navLink navitem"
                             onClick={() => handleNavigate(key)}

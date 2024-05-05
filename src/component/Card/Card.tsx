@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../Redux-store/Store";
-import { card_api } from "../../Redux-store/Api_services";
-import CardDetails from "./CardDetails";
-
-import "./_card.css";
+import { RootState } from "../../store/store";
+import { card_api } from "../../store/Api_services";
+import CardDetails from "../CardDetails/CardDetails";
 import { SpinningCircles } from "react-loading-icons";
-import { cardType } from "./type";
+import { cardProps } from "../../common/type";
+import { useAppDispatch } from "../../Hooks/useAppDispatch";
+import { useAppSelector } from "../../Hooks/useAppSelector";
+import "./_card.css";
 
-function Card({ category }: cardType) {
-    const dispatch = useDispatch<AppDispatch>();
+function Card({ category }: cardProps) {
+    const dispatch = useAppDispatch();
 
-    const cardData = useSelector(
-        (state: RootState) => state.card || { loading: true }
+    const { card, loading, error } = useAppSelector(
+        (state: RootState) => state.card
     );
-    const { card, loading, error } = cardData;
+
     useEffect(() => {
         dispatch(card_api(category));
     }, [dispatch, category]);
@@ -24,11 +24,12 @@ function Card({ category }: cardType) {
             {loading ? (
                 <SpinningCircles
                     style={{
-                        marginLeft: "50vw",
-                        marginTop: "30vh",
+                        marginLeft: "45vw",
+                        marginTop: "25vh",
                         backgroundColor: "grey",
                     }}
                     data-testid="loading"
+                    speed={1.5}
                 />
             ) : error ? (
                 error

@@ -1,5 +1,5 @@
 .film-container {
-  background-image: url(../common/Images/starwar.jpeg);
+  background-image: url(../../common/Images/starwar.jpeg);
   background-repeat: no-repeat;
   background-size: cover;
   padding: 2%;
@@ -17,7 +17,8 @@
   text-align: center;
   font-size: 1.1rem;
   background-color: #ddd;
-  opacity: 0.9; /* border: 1px solid black; */
+  opacity: 0.9;
+  cursor: pointer;
 }
 .film-table th {
   padding-top: 12px;
@@ -30,7 +31,7 @@
   background-color: #f2f2f2;
 }
 .film-table tr:hover {
-  background-color: #ddd;
+  background-color: #b2d894;
 }
 
 .film-details > h5 {

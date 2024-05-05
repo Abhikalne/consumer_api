@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { AppDispatch, RootState } from "../../Redux-store/Store";
-import { useDispatch, useSelector } from "react-redux";
-import { getData_api } from "../../Redux-store/Api_services";
+import { RootState } from "../../store/store";
+import { getData_api } from "../../store/Api_services";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
-import { resetCard } from "../../Redux-store/CardSlice";
+import { resetCard } from "../../store/CardDetails/CardDetailsSlice";
 import { SpinningCircles } from "react-loading-icons";
-function CardDetails({ items }: any) {
-    const dispatch = useDispatch<AppDispatch>();
-    const [slideIndex, setslideIndex] = useState(0);
-    const data = useSelector(
-        (state: RootState) => state.card || { loading: true }
+import { useAppSelector } from "../../Hooks/useAppSelector";
+import { useAppDispatch } from "../../Hooks/useAppDispatch";
+import { cardDetailsProps, cardType } from "../../common/type";
+
+function CardDetails({ items }: cardDetailsProps) {
+    const dispatch = useAppDispatch();
+    const { cardDetails, loading, error } = useAppSelector(
+        (state: RootState) => state.cardDetail
     );
-    const { cardDetails, loading, error } = data;
+    const [slideIndex, setslideIndex] = useState(0);
+
     const handlePrev = () => {
         dispatch(resetCard());
         setslideIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1));
@@ -30,7 +33,7 @@ function CardDetails({ items }: any) {
                 {" "}
                 <FaAngleLeft data-testid="btn-prev" />{" "}
             </div>{" "}
-            {items.map((ele: any, ind: number) => {
+            {items.map((ele: cardType, ind: number) => {
                 return (
                     <div
                         key={ind}
@@ -42,18 +45,19 @@ function CardDetails({ items }: any) {
                             {" "}
                             {loading ? (
                                 <SpinningCircles
-                                    style={{ marginTop: "20vh", backgroundColor: "grey" }}
+                                    className="loading"
                                     data-testid="loading"
+                                    speed={1.5}
                                 />
                             ) : error ? (
                                 error
                             ) : cardDetails.properties &&
-                cardDetails.properties.name === ele.name ? (
+                cardDetails.properties?.name === ele.name ? (
                                     Object.entries(cardDetails.properties)?.map(
                                         ([key, value]: any) => (
                                             <h5 key={key + value}>
                                                 {" "}
-                                                {key.replace('_',' ').toUpperCase()}:-{" "}
+                                                {key.replace("_", " ").toUpperCase()}:-{" "}
                                                 {Array.isArray(value)
                                                     ? value.map((itm: string) => (
                                                         <pre key={itm} style={{ fontSize: "0.8rem" }}>
@@ -67,8 +71,9 @@ function CardDetails({ items }: any) {
                                     )
                                 ) : (
                                     <SpinningCircles
-                                        style={{ marginTop: "20vh", backgroundColor: "grey" }}
+                                        className="loading"
                                         data-testid="loading"
+                                        speed={1.5}
                                     />
                                 )}{" "}
                         </div>{" "}

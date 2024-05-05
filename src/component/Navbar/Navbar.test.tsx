@@ -2,15 +2,13 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Navbar from "./Navbar";
 import { Provider } from "react-redux";
 
-import { createTestStore,  } from "./utils";
-import {
-    BrowserRouter,
-} from "react-router-dom";
+import { createTestStore } from "../../common/utils";
+import { BrowserRouter } from "react-router-dom";
 import { act } from "react";
+import { Store, UnknownAction } from "@reduxjs/toolkit";
 describe("test cases for navbar", () => {
-   
-    let store: any;
-    
+    let store: Store<unknown, UnknownAction, unknown>;
+
     beforeEach(() => {
         store = createTestStore();
     });
@@ -20,7 +18,7 @@ describe("test cases for navbar", () => {
                 {" "}
                 <BrowserRouter>
                     {" "}
-                    <Navbar setCategory={jest.fn()}/>{" "}
+                    <Navbar setCategory={jest.fn()} />{" "}
                 </BrowserRouter>{" "}
             </Provider>
         );

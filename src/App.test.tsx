@@ -1,15 +1,13 @@
-
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import App from "./App";
 
 import { Store, UnknownAction } from "@reduxjs/toolkit";
-import { createTestStore } from "./component/common/utils";
+import { createTestStore } from "./common/utils";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
 describe("test cases for app", () => {
- 
     let store: Store<unknown, UnknownAction, unknown>;
     beforeEach(() => {
         store = createTestStore();
@@ -39,4 +37,3 @@ describe("test cases for app", () => {
         waitFor(() => expect(screen.getByText("Error")).toBeInTheDocument());
     });
 });
-

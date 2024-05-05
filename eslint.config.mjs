@@ -14,8 +14,10 @@ export default [
       react: { version: "detect" },
     },
   },
-  {rules:{
-    "react/react-in-jsx-scope":"off",
-    "indent":["error",4]
-  }}
+  {
+    rules: {
+      "react/react-in-jsx-scope": "off",
+      indent: ["error", 4],
+    },
+  },
 ];

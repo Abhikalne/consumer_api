@@ -1,18 +1,18 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../Redux-store/Store";
-import { film_api } from "../../Redux-store/Api_services";
-import { sortFilm } from "../../Redux-store/FilmsSlice";
-
+import { RootState } from "../../store/store";
+import { film_api } from "../../store/Api_services";
 import "./_films.css";
 import { SpinningCircles } from "react-loading-icons";
+import { useAppDispatch } from "../../Hooks/useAppDispatch";
+import { useAppSelector } from "../../Hooks/useAppSelector";
+import { filmsType } from "../../common/type";
 
 function Films() {
-    const dispatch = useDispatch<AppDispatch>();
-    const [id, setId] = useState("");;
-    const { films, error, loading } = useSelector(
+    const dispatch = useAppDispatch();
+    const { films, error, loading } = useAppSelector(
         (state: RootState) => state.films
     );
+    const [id, setId] = useState("");
 
     useEffect(() => {
         dispatch(film_api());
@@ -28,6 +28,7 @@ function Films() {
                         marginTop: "30vh",
                         backgroundColor: "grey",
                     }}
+                    speed={1.5}
                     data-testid="loading"
                 />
             ) : error ? (
@@ -36,14 +37,14 @@ function Films() {
                 <table className="film-table">
                     <thead>
                         <tr>
-                            <th onClick={() => dispatch(sortFilm("title"))}>Title</th>
+                            <th>Title</th>
                             <th>Director</th>
                             <th>Release date</th>
                             <th>Episode no</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {films.map((ele: any, ind: number) => (
+                        {films.map((ele: filmsType, ind: number) => (
                             <Fragment key={ind}>
                                 <tr
                                     onClick={() => (ele.uid === id ? setId("") : setId(ele.uid))}

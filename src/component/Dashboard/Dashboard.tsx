@@ -1,19 +1,19 @@
 import React, { Fragment, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { dashboard_api } from "../Redux-store/Api_services";
-import { AppDispatch, RootState } from "../Redux-store/Store";
-import { images } from "./common/imagesData";
+import { dashboard_api } from "../../store/Api_services";
+import { RootState } from "../../store/store";
+import { images } from "../../common/imagesData";
 import { useNavigate } from "react-router-dom";
 import { SpinningCircles } from "react-loading-icons";
+import { dashboardProps } from "../../common/type";
+import { useAppSelector } from "../../Hooks/useAppSelector";
+import { useAppDispatch } from "../../Hooks/useAppDispatch";
 
 import "./_dashboard.css";
-import { dashboardType } from "./common/type";
 
-
-function Dashboard({ setCategory }:dashboardType) {
-    const dispatch = useDispatch<AppDispatch>();
+function Dashboard({ setCategory }: dashboardProps) {
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { rootData, error, loading } = useSelector(
+    const { rootData, error, loading } = useAppSelector(
         (state: RootState) => state.dashboard
     );
     useEffect(() => {
@@ -26,7 +26,11 @@ function Dashboard({ setCategory }:dashboardType) {
     };
     const showData = () => {
         return Object.keys(rootData).map((key: string, i: number) => (
-            <div key={key+i} className="rootData-item" onClick={() => handleClick(key)}>
+            <div
+                key={key + i}
+                className="rootData-item"
+                onClick={() => handleClick(key)}
+            >
                 {images.map((itm: any, ind: number) => {
                     return (
                         <Fragment key={ind}>
@@ -43,7 +47,11 @@ function Dashboard({ setCategory }:dashboardType) {
             <h1>STAR WAR Movie World</h1>
             <div className="parent">
                 {loading ? (
-                    <SpinningCircles className="loading" data-testid="loading" />
+                    <SpinningCircles
+                        className="loading"
+                        data-testid="loading"
+                        speed={1.5}
+                    />
                 ) : error ? (
                     error
                 ) : (
