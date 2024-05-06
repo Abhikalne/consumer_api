@@ -6,11 +6,11 @@ export type dashboardState = {
   loading: boolean;
   error: string;
 };
-const initialState = <dashboardState>{
+const initialState = {
   rootData: {},
   loading: true,
   error: "",
-};
+}as dashboardState;
 
 const DashboardSlice = createSlice({
   name: "dashboard",

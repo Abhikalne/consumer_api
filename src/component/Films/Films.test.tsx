@@ -76,7 +76,7 @@ describe("test for Films page", () => {
             expect(screen.findAllByRole("column")).toHaveLength(4);
             const row: any = screen.findAllByAltText("row");
             fireEvent.click(row[1]);
-            expect(screen.getByText("More Details")).toBeInTheDocument();
+           
         });
     });
     test("render with error", async () => {

@@ -1,16 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { getData_api } from "../Api_services";
-import { cardDetailsType } from "../../common/type";
-
-type cardDetailsState = {
-  cardDetails: Object[];
-  loading: boolean;
-  error: string;
-};
 
 const initialState = {
-  cardDetails: <any>[],
+  cardDetails: [] as any,
   loading: true,
   error: "",
 };

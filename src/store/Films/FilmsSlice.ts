@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { film_api } from "../Api_services";
 import { filmsType } from "../../common/type";
 
@@ -9,7 +9,7 @@ type filmsState = {
 };
 const FilmsSlice = createSlice({
   name: "films",
-  initialState: <filmsState>{ films: [], error: "", loading: true },
+  initialState: { films: [], error: "", loading: true } as filmsState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(film_api.fulfilled, (state, action) => {

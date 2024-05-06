@@ -59,7 +59,7 @@ function Films() {
                                         <td colSpan={4} className="film-details">
                                             <h2>Starting Plot</h2>
                                             <h5>{ele.properties.opening_crawl}</h5>
-                                            <button>More Details</button>
+                        
                                         </td>
                                     </tr>
                                 )}

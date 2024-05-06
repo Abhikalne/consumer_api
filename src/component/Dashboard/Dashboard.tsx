@@ -34,7 +34,7 @@ function Dashboard({ setCategory }: dashboardProps) {
                 {images.map((itm: any, ind: number) => {
                     return (
                         <Fragment key={ind}>
-                            {itm[key] ? <img src={itm[key]} alt={key} /> : <></>}
+                            {itm[key] ? <img src={itm[key]} alt={key} loading="lazy"/> : <></>}
                         </Fragment>
                     );
                 })}
