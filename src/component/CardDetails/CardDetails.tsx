@@ -5,7 +5,7 @@ import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 import { SpinningCircles } from "react-loading-icons";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { cardDetailsProps, cardDetailsType, cardType } from "../../common/type";
+import { cardDetailsProps, cardType } from "../../common/type";
 
 function CardDetails({ items }: cardDetailsProps) {
     const dispatch = useAppDispatch();
@@ -21,8 +21,8 @@ function CardDetails({ items }: cardDetailsProps) {
         setslideIndex((prev) => (prev === items.length - 1 ? 0 : prev + 1));
     };
     useEffect(() => {
-        dispatch(getData_api(items));
-    }, [dispatch, items]);
+        dispatch(getData_api(items[slideIndex].url));
+    }, [dispatch, slideIndex]);
     return (
         <div className="card-parent">
             {" "}
@@ -49,23 +49,24 @@ function CardDetails({ items }: cardDetailsProps) {
                             ) : error ? (
                                 error
                             ) : (
-                                cardDetails?.map(
-                                    (itm: cardDetailsType) =>
-                                        itm.properties?.name === ele.name &&
-                    Object.entries(itm.properties)?.map(([key, value]: any) => (
-                        <h5 key={key + value}>
-                            {" "}
-                            {key.replace("_", " ").toUpperCase()}:-{" "}
-                            {Array.isArray(value)
-                                ? value.map((itm: string) => (
-                                    <pre key={itm} style={{ fontSize: "0.8rem" }}>
-                                        {" "}
-                                        {itm}{" "}
-                                    </pre>
-                                ))
-                                : value}{" "}
-                        </h5>
-                    ))
+                            // cardDetails?.map(
+                            //   (itm: cardDetailsType) =>
+                            //     itm.properties?.name === ele.name &&
+                                Object.entries(cardDetails.properties)?.map(
+                                    ([key, value]: any) => (
+                                        <h5 key={key + value}>
+                                            {" "}
+                                            {key.replace("_", " ").toUpperCase()}:-{" "}
+                                            {Array.isArray(value)
+                                                ? value.map((itm: string) => (
+                                                    <pre key={itm} style={{ fontSize: "0.8rem" }}>
+                                                        {" "}
+                                                        {itm}{" "}
+                                                    </pre>
+                                                ))
+                                                : value}{" "}
+                                        </h5>
+                                    )
                                 )
                             )}{" "}
                         </div>{" "}

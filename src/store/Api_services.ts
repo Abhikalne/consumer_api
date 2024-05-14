@@ -21,17 +21,19 @@ export const card_api = createAsyncThunk("api/people", async (data: string) => {
 
 export const getData_api = createAsyncThunk(
   "api/getData",
-  async (items: cardType[]) => {
-    try {
-      const response = await Promise.all(
-        items.map((ele: cardType) => axios.get(ele.url))
-      );
-      const dataList: cardDetailsType[] = response.map(
-        (res: any) => res.data.result
-      );
-      return dataList;
-    } catch (err) {
-      return err;
-    }
+  async (url: string) => {
+    const response = await axios.get(url);
+    return response.data.result;
+    // try {
+    //   const response = await Promise.all(
+    //     items.map((ele: cardType) => axios.get(ele.url))
+    //   );
+    //   const dataList: cardDetailsType[] = response.map(
+    //     (res: any) => res.data.result
+    //   );
+    //   return dataList;
+    // } catch (err) {
+    //   return err;
+    // }
   }
 );

@@ -4,13 +4,12 @@ import { RootState } from "../../store/store";
 import { images } from "../../common/imagesData";
 import { useNavigate } from "react-router-dom";
 import { SpinningCircles } from "react-loading-icons";
-import { dashboardProps } from "../../common/type";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 import "./_dashboard.css";
 
-function Dashboard({ setCategory }: dashboardProps) {
+function Dashboard() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { rootData, error, loading } = useAppSelector(
@@ -21,7 +20,6 @@ function Dashboard({ setCategory }: dashboardProps) {
     }, [dispatch]);
 
     const handleClick = (key: string) => {
-        setCategory(key);
         navigate("/" + key);
     };
     const showData = () => {
@@ -34,7 +32,11 @@ function Dashboard({ setCategory }: dashboardProps) {
                 {images.map((itm: any, ind: number) => {
                     return (
                         <Fragment key={ind}>
-                            {itm[key] ? <img src={itm[key]} alt={key} loading="lazy"/> : <></>}
+                            {itm[key] ? (
+                                <img src={itm[key]} alt={key} loading="lazy" />
+                            ) : (
+                                <></>
+                            )}
                         </Fragment>
                     );
                 })}

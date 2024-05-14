@@ -23,7 +23,7 @@ export const routesConfig = [
         path: "/",
         element: (
             <>
-                <Dashboard setCategory={jest.fn()} />
+                <Dashboard />
             </>
         ),
     },

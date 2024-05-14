@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Navbar from "./Navbar";
 import { Provider } from "react-redux";
 
-import { createTestStore } from "../../common/utils";
+import { createTestStore } from "../../test/utils";
 import { BrowserRouter } from "react-router-dom";
 import { act } from "react";
 import { Store, UnknownAction } from "@reduxjs/toolkit";
@@ -18,10 +18,11 @@ describe("test cases for navbar", () => {
                 {" "}
                 <BrowserRouter>
                     {" "}
-                    <Navbar setCategory={jest.fn()} />{" "}
+                    <Navbar />{" "}
                 </BrowserRouter>{" "}
             </Provider>
         );
+
         expect(screen.getByText("STARWAR API")).toBeInTheDocument();
         expect(screen.getByText("FILMS")).toBeInTheDocument();
         expect(screen.getByText("SPECIES")).toBeInTheDocument();
@@ -32,10 +33,11 @@ describe("test cases for navbar", () => {
                 {" "}
                 <BrowserRouter>
                     {" "}
-                    <Navbar setCategory={jest.fn()} />{" "}
+                    <Navbar />{" "}
                 </BrowserRouter>{" "}
             </Provider>
         );
+
         const films = screen.getByText("FILMS");
         act(() => {
             fireEvent.click(films);
@@ -44,15 +46,17 @@ describe("test cases for navbar", () => {
     });
     it("render navbar click on films", () => {
         const toggleActiveClass = jest.fn();
+
         render(
             <Provider store={store}>
                 {" "}
                 <BrowserRouter>
                     {" "}
-                    <Navbar setCategory={jest.fn()} />{" "}
+                    <Navbar />{" "}
                 </BrowserRouter>{" "}
             </Provider>
         );
+
         const hamburger = screen.getByTestId("hamburger");
         act(() => {
             fireEvent.click(hamburger);

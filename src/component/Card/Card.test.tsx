@@ -1,11 +1,12 @@
 import axios from "axios";
 import axiosMock from "axios-mock-adapter";
-import { createTestStore, routesConfig } from "../../common/utils";
+import { createTestStore, routesConfig } from "../../test/utils";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 
 import { Store, UnknownAction } from "@reduxjs/toolkit";
+import { act } from "react";
 
 describe("test for Card page", () => {
     const axiosMockInstance = new axiosMock(axios);
@@ -38,8 +39,13 @@ describe("test for Card page", () => {
                 <RouterProvider router={router} />
             </Provider>
         );
-        expect(screen.getByText("PEOPLE")).toBeInTheDocument();
-        expect(screen.getByTestId("loading")).toBeInTheDocument();
+
+        waitFor(
+            () => (
+                expect(screen.getByText("PEOPLE")).toBeInTheDocument(),
+                expect(screen.getByTestId("loading")).toBeInTheDocument()
+            )
+        );
     });
 
     test("render with data", async () => {
@@ -52,10 +58,11 @@ describe("test for Card page", () => {
                 <RouterProvider router={router} />
             </Provider>
         );
-        expect(screen.getByText("PEOPLE")).toBeInTheDocument();
+
         waitFor(() => {
+            expect(screen.getByText("PEOPLE")).toBeInTheDocument();
             expect(screen.getByText(data.results[0].name)).toBeInTheDocument();
-            fireEvent.click(screen.getByTestId("btn-next"));
+            act(() => fireEvent.click(screen.getByTestId("btn-next")));
             expect(screen.getByText(data.results[1].name)).toBeInTheDocument();
         });
     });
@@ -68,11 +75,14 @@ describe("test for Card page", () => {
                 <RouterProvider router={router} />
             </Provider>
         );
-        expect(screen.getByText("PEOPLE")).toBeInTheDocument();
-        waitFor(() =>
-            expect(
-                screen.getByText("Request failed with status code 404")
-            ).toBeInTheDocument()
+
+        waitFor(
+            () => (
+                expect(screen.getByText("PEOPLE")).toBeInTheDocument(),
+                expect(
+                    screen.getByText("Request failed with status code 404")
+                ).toBeInTheDocument()
+            )
         );
     });
 
@@ -84,6 +94,7 @@ describe("test for Card page", () => {
                 <RouterProvider router={router} />
             </Provider>
         );
+
         expect(screen.getByText("PEOPLE")).toBeInTheDocument();
         waitFor(() =>
             expect(

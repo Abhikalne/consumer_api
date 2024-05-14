@@ -1,11 +1,12 @@
 import axios from "axios";
 import axiosMock from "axios-mock-adapter";
-import { createTestStore, routesConfig } from "../../common/utils";
+import { createTestStore, routesConfig } from "../../test/utils";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 
 import { Store, UnknownAction } from "@reduxjs/toolkit";
+import { act } from "react";
 
 let store: Store<unknown, UnknownAction, unknown>;
 describe("test for Films page", () => {
@@ -24,8 +25,11 @@ describe("test for Films page", () => {
                 <RouterProvider router={router} />
             </Provider>
         );
-        expect(screen.getByText("MOVIES")).toBeInTheDocument();
-        expect(screen.getByTestId("loading")).toBeInTheDocument();
+
+        waitFor(() => {
+            expect(screen.getByText("MOVIES")).toBeInTheDocument();
+            expect(screen.getByTestId("loading")).toBeInTheDocument();
+        });
     });
 
     test("render with data", async () => {
@@ -55,9 +59,10 @@ describe("test for Films page", () => {
                 <RouterProvider router={router} />
             </Provider>
         );
-        expect(screen.getByText("MOVIES")).toBeInTheDocument();
 
         waitFor(() => {
+            expect(screen.getByText("MOVIES")).toBeInTheDocument();
+
             expect(screen.findAllByRole("column")).toHaveLength(1),
             expect(screen.findAllByRole("row")).toHaveLength(4),
             expect(screen.getByText("The Empire Strikes Back")).toBeInTheDocument();
@@ -72,11 +77,11 @@ describe("test for Films page", () => {
                 </Provider>
             </Provider>
         );
+
         waitFor(() => {
             expect(screen.findAllByRole("column")).toHaveLength(4);
             const row: any = screen.findAllByAltText("row");
-            fireEvent.click(row[1]);
-           
+            act(() => fireEvent.click(row[1]));
         });
     });
     test("render with error", async () => {
@@ -89,6 +94,7 @@ describe("test for Films page", () => {
                 </Provider>
             </Provider>
         );
+
         await waitFor(() =>
             expect(
                 screen.getByText("Request failed with status code 500")
@@ -106,6 +112,7 @@ describe("test for Films page", () => {
                 </Provider>
             </Provider>
         );
+
         await waitFor(() =>
             expect(
                 screen.getByText("Request failed with status code 404")

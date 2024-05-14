@@ -1,8 +1,18 @@
 // import ErrorPage from "./ErrorPage";
-import { useState } from "react";
+import { ReactElement, ReactNode, ReactPortal, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
-export default function ReactErrorBoundary(props: any) {
+export default function ReactErrorBoundary(props: {
+  children:
+    | string
+    | number
+    | boolean
+    | ReactElement
+    | Iterable<ReactNode>
+    | ReactPortal
+    | null
+    | undefined;
+}) {
     const [errorInfo, setErrorInfo] = useState("");
 
     const erroCompoent = () => {

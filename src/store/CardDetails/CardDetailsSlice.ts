@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getData_api } from "../Api_services";
 
 const initialState = {
-  cardDetails: [] as any,
+  cardDetails: {} as any,
   loading: true,
   error: "",
 };

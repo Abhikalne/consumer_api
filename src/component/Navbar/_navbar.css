@@ -1,4 +1,3 @@
-
 ul {
   list-style: none;
 }
@@ -11,8 +10,12 @@ a {
 
 /* navbar */
 .navbar {
-  background: rgb(225,174,238);
-  background: radial-gradient(circle, rgba(225,174,238,1) 0%, rgba(158,148,233,1) 100%);
+  background: rgb(225, 174, 238);
+  background: radial-gradient(
+    circle,
+    rgba(225, 174, 238, 1) 0%,
+    rgba(158, 148, 233, 1) 100%
+  );
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -21,14 +24,12 @@ a {
   /* min-height: 70px; */
 }
 
-
 /* logo  */
 .logo {
   font-size: 30px;
   color: rgb(125, 1, 1);
   font-family: Arial, Helvetica, sans-serif;
 }
-
 
 /* ul  */
 .navMenu {
@@ -37,11 +38,12 @@ a {
   align-items: center;
   gap: 60px;
 }
-
+.navMenu .active {
+  color: White;
+}
 /* media queries */
 
-@media screen and (max-width: 780px){
-  
+@media screen and (max-width: 780px) {
   /* hamburger */
   .hamburger {
     display: block;
@@ -49,30 +51,29 @@ a {
   }
 
   .bar {
-        background-color: #120f0b;
-        width: 20px;
-        height: 3px;
-        display: block;
-        margin: 5px;
-        -webkit-transition: 0.3s ease-in-out;
-        transition: 0.3s ease-in-out;
-    }
+    background-color: #120f0b;
+    width: 20px;
+    height: 3px;
+    display: block;
+    margin: 5px;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+  }
 
   /* adding active class to the bars  */
-  .hamburger.active .bar:nth-child(2){
+  .hamburger.active .bar:nth-child(2) {
     opacity: 0;
   }
-  .hamburger.active .bar:nth-child(1){
+  .hamburger.active .bar:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
   }
-  .hamburger.active .bar:nth-child(3){
+  .hamburger.active .bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
   }
 
-
   /* navMenu */
 
-  .navMenu{
+  .navMenu {
     position: absolute;
     flex-direction: column;
     gap: 20px;
@@ -81,23 +82,25 @@ a {
     text-align: start;
     width: 100%;
     transition: 0.7s ease-in-out;
-    background: rgb(225,174,238);
-    background: radial-gradient(circle, rgba(225,174,238,1) 0%, rgba(158,148,233,1) 100%);
+    background: rgb(225, 174, 238);
+    background: radial-gradient(
+      circle,
+      rgba(225, 174, 238, 1) 0%,
+      rgba(158, 148, 233, 1) 100%
+    );
     padding: 10px;
     z-index: 1;
   }
 
-  .navMenu.active{
+  .navMenu.active {
     left: 0;
-    
   }
 
   .navMenu li {
     margin: 16px 0;
   }
-
 }
-
-.navitem:hover{
-font-size: 1.2rem;
-}
+/* 
+.navitem:hover {
+  font-size: 1.2rem;
+} */

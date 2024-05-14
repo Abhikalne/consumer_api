@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-
+import React from "react";
 import Dashboard from "./component/Dashboard/Dashboard";
 import { Provider } from "react-redux";
 import store from "./store/store";
@@ -11,31 +10,33 @@ import ErrorBoundaryPage from "./component/ErrorBoundary";
 import "./App.css";
 
 function App() {
-    const [category, setCategory] = useState<string>("");
-
-    const location = window.location;
-    const arr = ["people", "planets", "species", "starships", "vehicles"];
-    useEffect(() => {
-        !category && setCategory(location.toString());
-    }, [category, location]);
-
     return (
         <Provider store={store}>
-            <Navbar setCategory={setCategory} />
+            <Navbar />
             <ErrorBoundaryPage>
                 <Routes>
-                    <Route
-                        path="/"
-                        element={<Dashboard setCategory={setCategory} />}
-                    ></Route>
+                    <Route path="/" element={<Dashboard />}></Route>
                     <Route path="/films" Component={Films}></Route>
-                    {arr.map((ele: string, ind: number) => (
+                    <Route path="/people" element={<Card category="people" />}></Route>
+                    <Route path="/people/:1" element={<Card category="people" />}></Route>
+                    <Route path="/planets" element={<Card category="planets" />}></Route>
+                    <Route path="/species" element={<Card category="species" />}></Route>
+                    <Route
+                        path="/starships"
+                        element={<Card category="starships" />}
+                    ></Route>
+                    <Route
+                        path="/vehicles"
+                        element={<Card category="vehicles" />}
+                    ></Route>
+
+                    {/* {arr.map((ele: string, ind: number) => (
                         <Route
                             key={ele + ind}
                             path={ele}
                             element={<Card category={ele} />}
                         ></Route>
-                    ))}
+                    ))} */}
                 </Routes>
             </ErrorBoundaryPage>
         </Provider>

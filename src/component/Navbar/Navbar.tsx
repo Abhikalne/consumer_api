@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
 import "./_navbar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { resetCard } from "../../store/CardDetails/CardDetailsSlice";
 import { card_api } from "../../store/Api_services";
-import { navbarType } from "../../common/type";
 
-function Navbar({ setCategory }: navbarType) {
+function Navbar() {
     const data: string[] = [
         "FILMS",
         "PEOPLE",
@@ -18,6 +17,7 @@ function Navbar({ setCategory }: navbarType) {
         "VEHICLES",
     ];
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
 
     const [isActive, setIsActive] = useState(false);
 
@@ -28,7 +28,8 @@ function Navbar({ setCategory }: navbarType) {
     const handleNavigate = (key: string) => {
         dispatch(resetCard());
         dispatch(card_api(key));
-        setCategory(key);
+        // setCategory(key);
+        navigate(key);
     };
     return (
         <header className="">

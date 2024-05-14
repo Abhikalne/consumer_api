@@ -6,7 +6,7 @@
 }
 .loading {
   margin-top: 10%;
-  background-color: rgb(88, 88, 88);
+  /* background-color: rgb(88, 88, 88); */
   opacity: 0.7;
   /* color: white; */
 }
@@ -29,7 +29,9 @@
   font-weight: bolder;
   font-size: larger;
 }
-
+.rootData-item:hover {
+  background-color: rgb(150, 224, 224);
+}
 @media only screen and (max-width: 768px) {
   .rootData-item {
     width: 50%;

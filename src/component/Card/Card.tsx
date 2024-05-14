@@ -26,7 +26,6 @@ function Card({ category }: cardProps) {
                     style={{
                         marginLeft: "45vw",
                         marginTop: "25vh",
-                        backgroundColor: "grey",
                     }}
                     data-testid="loading"
                     speed={1.5}
