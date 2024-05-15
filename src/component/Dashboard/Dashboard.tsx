@@ -20,7 +20,10 @@ function Dashboard() {
     }, [dispatch]);
 
     const handleClick = (key: string) => {
-        navigate("/" + key);
+        if(key==='films')
+            navigate(key)
+        else
+            navigate(key+'/1');
     };
     const showData = () => {
         return Object.keys(rootData).map((key: string, i: number) => (
@@ -29,6 +32,7 @@ function Dashboard() {
                 className="rootData-item"
                 onClick={() => handleClick(key)}
             >
+                {/* eslint-disable-next-line */}
                 {images.map((itm: any, ind: number) => {
                     return (
                         <Fragment key={ind}>

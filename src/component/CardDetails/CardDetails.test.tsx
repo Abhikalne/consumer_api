@@ -3,7 +3,6 @@ import axios from "axios";
 import axiosMock from "axios-mock-adapter";
 import { Provider } from "react-redux";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
-import CardDetails from "./CardDetails";
 import { createTestStore, routesConfig } from "../../test/utils";
 import { Store, UnknownAction } from "@reduxjs/toolkit";
 
@@ -26,7 +25,7 @@ describe("test for Card page", () => {
         ],
     };
     const router = createMemoryRouter(routesConfig, {
-        initialEntries: ["/", "/films", "/people"],
+        initialEntries: ["/", "/films", "/people/1"],
         initialIndex: 2,
     });
 
@@ -60,7 +59,7 @@ describe("test for Card page", () => {
         render(
             <Provider store={store}>
                 <RouterProvider router={router} />
-                <CardDetails items={data.results} />
+                {/* <CardDetails items={data.results} /> */}
             </Provider>
         );
         waitFor(() => {
@@ -114,7 +113,7 @@ describe("test for Card page", () => {
         render(
             <Provider store={store}>
                 <RouterProvider router={router} />
-                <CardDetails items={data.results} />
+                {/* <CardDetails items={data.results} /> */}
             </Provider>
         );
 
@@ -132,7 +131,7 @@ describe("test for Card page", () => {
         render(
             <Provider store={store}>
                 <RouterProvider router={router} />
-                <CardDetails items={data.results} />
+                {/* <CardDetails items={data.results} /> */}
             </Provider>
         );
 

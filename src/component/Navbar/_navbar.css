@@ -100,7 +100,7 @@ a {
     margin: 16px 0;
   }
 }
-/* 
+
 .navitem:hover {
-  font-size: 1.2rem;
-} */
+ text-decoration: underline;
+}

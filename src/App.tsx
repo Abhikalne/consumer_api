@@ -17,26 +17,28 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Dashboard />}></Route>
                     <Route path="/films" Component={Films}></Route>
-                    <Route path="/people" element={<Card category="people" />}></Route>
-                    <Route path="/people/:1" element={<Card category="people" />}></Route>
-                    <Route path="/planets" element={<Card category="planets" />}></Route>
-                    <Route path="/species" element={<Card category="species" />}></Route>
+                    <Route path="/people/" element={<Card category="people" />}></Route>
+                    <Route path="/planets/" element={<Card category="planets" />}></Route>
+                    <Route path="/species/" element={<Card category="species" />}></Route>
                     <Route
-                        path="/starships"
+                        path="/starships/"
                         element={<Card category="starships" />}
                     ></Route>
                     <Route
-                        path="/vehicles"
+                        path="/vehicles/"
                         element={<Card category="vehicles" />}
                     ></Route>
-
-                    {/* {arr.map((ele: string, ind: number) => (
-                        <Route
-                            key={ele + ind}
-                            path={ele}
-                            element={<Card category={ele} />}
-                        ></Route>
-                    ))} */}
+                    <Route path="/people/:id" element={<Card category="people" />}></Route>
+                    <Route path="/planets/:id" element={<Card category="planets" />}></Route>
+                    <Route path="/species/:id" element={<Card category="species" />}></Route>
+                    <Route
+                        path="/starships/:id"
+                        element={<Card category="starships" />}
+                    ></Route>
+                    <Route
+                        path="/vehicles/:id"
+                        element={<Card category="vehicles" />}
+                    ></Route>
                 </Routes>
             </ErrorBoundaryPage>
         </Provider>

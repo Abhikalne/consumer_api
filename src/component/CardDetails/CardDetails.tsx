@@ -6,23 +6,34 @@ import { SpinningCircles } from "react-loading-icons";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { cardDetailsProps, cardType } from "../../common/type";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 function CardDetails({ items }: cardDetailsProps) {
     const dispatch = useAppDispatch();
+    const navigate=useNavigate()
+    const location=useLocation()
+    const {id}=useParams()
+    const path=location.pathname.split('/')[1]
     const { cardDetails, loading, error } = useAppSelector(
         (state: RootState) => state.cardDetail
     );
     const [slideIndex, setslideIndex] = useState(0);
+    
 
     const handlePrev = () => {
         setslideIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1));
+       
     };
     const handleNext = () => {
         setslideIndex((prev) => (prev === items.length - 1 ? 0 : prev + 1));
+        
     };
     useEffect(() => {
         dispatch(getData_api(items[slideIndex].url));
+        navigate('/'+path+'/'+items[slideIndex].uid) 
+        // eslint-disable-next-line
     }, [dispatch, slideIndex]);
+    
     return (
         <div className="card-parent">
             {" "}
@@ -49,10 +60,8 @@ function CardDetails({ items }: cardDetailsProps) {
                             ) : error ? (
                                 error
                             ) : (
-                            // cardDetails?.map(
-                            //   (itm: cardDetailsType) =>
-                            //     itm.properties?.name === ele.name &&
-                                Object.entries(cardDetails.properties)?.map(
+                                cardDetails.uid===id &&  Object.entries(cardDetails.properties)?.map(
+                                    // eslint-disable-next-line
                                     ([key, value]: any) => (
                                         <h5 key={key + value}>
                                             {" "}

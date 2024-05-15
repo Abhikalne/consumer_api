@@ -28,7 +28,7 @@ function Navbar() {
     const handleNavigate = (key: string) => {
         dispatch(resetCard());
         dispatch(card_api(key));
-        // setCategory(key);
+
         navigate(key);
     };
     return (

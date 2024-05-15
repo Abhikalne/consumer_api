@@ -80,6 +80,7 @@ describe("test for Films page", () => {
 
         waitFor(() => {
             expect(screen.findAllByRole("column")).toHaveLength(4);
+            // eslint-disable-next-line
             const row: any = screen.findAllByAltText("row");
             act(() => fireEvent.click(row[1]));
         });
