@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Navbar from "./Navbar";
 import { Provider } from "react-redux";
 
-import { createTestStore } from "../../test/utils";
+import { createTestStore } from "../../test/TestDetails";
 import { BrowserRouter } from "react-router-dom";
 import { act } from "react";
 import { Store, UnknownAction } from "@reduxjs/toolkit";

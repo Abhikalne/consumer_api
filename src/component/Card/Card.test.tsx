@@ -1,6 +1,6 @@
 import axios from "axios";
 import axiosMock from "axios-mock-adapter";
-import { createTestStore, routesConfig } from "../../test/utils";
+import { createTestStore, routesConfig } from "../../test/TestDetails";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";

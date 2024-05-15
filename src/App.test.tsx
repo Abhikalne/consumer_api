@@ -3,7 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import App from "./App";
 
 import { Store, UnknownAction } from "@reduxjs/toolkit";
-import { createTestStore } from "./test/utils";
+import { createTestStore } from "./test/TestDetails";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 

@@ -79,7 +79,7 @@ a {
     gap: 20px;
     top: 2.5rem;
     left: -100%;
-    text-align: start;
+    text-align: center;
     width: 100%;
     transition: 0.7s ease-in-out;
     background: rgb(225, 174, 238);
@@ -92,6 +92,12 @@ a {
     z-index: 1;
   }
 
+  .navitem {
+    display: flex;
+    flex-direction: column;
+    row-gap: 3rem;
+    height: 20%;
+  }
   .navMenu.active {
     left: 0;
   }
@@ -102,5 +108,5 @@ a {
 }
 
 .navitem:hover {
- text-decoration: underline;
+  text-decoration: underline;
 }
